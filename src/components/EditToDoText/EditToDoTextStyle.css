@@ -1,0 +1,31 @@
+.edit-to-do-text-form {
+    display: none;
+    box-sizing: border-box;
+    height: 35px;
+    flex-grow: 1;
+}
+
+.edit-to-do-input {
+    width: 100%;
+    height: 35px;
+    top: -35px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+
+
+.edit-to-do-text-form_show {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 35px;
+}
+
+
+.edit-to-do-input_show {
+    width: 100%;
+    height: 35px;
+}
+
+

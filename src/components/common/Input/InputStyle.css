@@ -1,0 +1,9 @@
+.input {
+    width: 470px;
+    border: none;
+    outline: none;
+}
+
+.input-area__input {
+    justify-self: start;
+}

@@ -1,0 +1,12 @@
+.add-to-do-form {
+    display: flex;
+    flex-grow: 1;
+    box-sizing: border-box;
+    height: 35px;
+}
+
+.add-to-do-input {
+    box-sizing: border-box;
+    height: 100%;
+    width: 95%;
+}

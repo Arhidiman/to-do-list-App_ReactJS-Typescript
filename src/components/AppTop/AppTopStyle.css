@@ -1,0 +1,14 @@
+.app-top{
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    border: solid rgb(48, 48, 255) 3px;
+}
+
+.app-top-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 95%;
+    height: 100%
+}

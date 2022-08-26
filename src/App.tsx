@@ -1,25 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-
+import AppHeader from './components/AppHeader/AppHeader';
+import AppTop from './components/AppTop/AppTop';
+import AppBottom from './components/AppBottom/AppBottom';
+import AddToDoForm from './components/AddToDoForm/AddToDoForm';
+import SearchToDoForm from './components/SearchToDoForm/SearchToDoForm';
+import ToDoList from './components/ToDoList/ToDoList';
+import ToDoListEdit from './components/ToDoListEdit/ToDoListEdit';
+import AppBody from './components/AppBody/AppBody';
+import Text from './components/common/Text/Text';
 function App() {
+
+  const [tasksList, setTasksList] = useState<any[]>([]) 
+  // Массив tasksList со списком задач, нужен для удобства манипулирования элементами списка в процессе создания, редактирования, удаления, поиска и т.д
+  // Массив состоит из объектов, со свойствами соответствующими каждому элементу списка
+  const [toDoItems, setToDoItems] = useState<HTMLCollectionOf<HTMLDivElement>>(document.getElementsByClassName('to-do-item') as HTMLCollectionOf<HTMLDivElement>)
+  const [editItems, setEditItems] = useState<HTMLCollectionOf<HTMLDivElement>>(document.getElementsByClassName('edit-item-container') as HTMLCollectionOf<HTMLDivElement>)
+
+
+  useEffect(()=>{
+    //Присваивание каждому элементу списка своего HTML элемента с задачей и HTML элемента редактирующего эту
+    tasksList.forEach((task, index)=>{task.toDoElement = toDoItems[index]; task.editElement = editItems[index]})
+    setTasksList(tasksList)
+  })
+
   return (
+    //Разбиение проекта на компоненты, структура приложения выглядит следующим образом:
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="app-container">
+        <AppHeader> 
+          <Text className = 'app-title' textType = 'title' inner = 'Welcome to to-do list App'/>
+        </AppHeader>
+        <AppBody>
+          <AppTop>
+            <AddToDoForm tasksList = {tasksList} setTasksList = {setTasksList}/>
+            <SearchToDoForm tasksList = {tasksList}/>
+          </AppTop>
+          <AppBottom>
+            <ToDoList tasksList = {tasksList}/>
+            <ToDoListEdit tasksList = {tasksList} setTasksList = {setTasksList}/>
+          </AppBottom>
+        </AppBody> 
+      </div>
     </div>
+    // Логика добавления задач реализована в компоненте <AddToDoForm/>
+    // Логика поиска задач по названию реализована в компоненте <SearchToDoForm/>
+    // Логика взаимодействия со списком задач(удаление, редактирование, установка статуса) реализована в компоненте <EditItem/>
+    // Логика изменения размера окна списка задач реализована в компоненте <ToDoList/>
   );
 }
 

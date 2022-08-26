@@ -1,0 +1,34 @@
+.to-do-item {
+    box-sizing: border-box;
+    height: 35px;
+    margin: 10px 0px;
+    padding: 5px 0px 5px 10px;
+    border: rgb(103, 103, 255) solid 2px;
+    border-radius: 3px;
+    text-align: left;
+    background: #767171;
+}
+
+.to-do-item-text {
+    overflow: hidden;
+    line-height: 1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+
+.next-in-line {
+    background: #767171;
+}
+
+.in-progress {
+    background: #5B9BD5;
+}
+
+.completed {
+    background: #00B050;
+}
+
+.to-do-item_found {
+    background: orange;
+}

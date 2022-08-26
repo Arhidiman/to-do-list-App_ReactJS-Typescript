@@ -1,0 +1,11 @@
+.app-title {
+    flex: none;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    text-shadow: 2px 2px 3px rgb(29, 29, 29);
+    transition: all ease 0.3s
+}
+
+

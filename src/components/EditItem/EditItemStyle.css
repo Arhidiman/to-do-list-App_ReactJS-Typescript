@@ -1,0 +1,22 @@
+.edit-item-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    justify-content: space-around;
+}
+
+.to-do-edit-component {
+    box-sizing: border-box;
+    height: 35px;
+    background: grey;
+    border: rgb(103, 103, 255) solid 2px;
+    border-radius: 3px;
+    overflow: hidden;
+    text-align: left;
+    line-height: 1em;
+}   
+
+
+.edit-item-container_show-form {
+    position: relative;
+}
