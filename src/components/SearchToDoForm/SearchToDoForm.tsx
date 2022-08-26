@@ -7,45 +7,43 @@ interface ISearchToDoForm {
 }
 
 const  SearchToDoForm: FC<ISearchToDoForm> = ({tasksList})=> {
+
+    //Объявление необходимых констант
     const searchInput = useRef<HTMLInputElement>(null!)
     const [searchButtonElement, setSearchButtonElement] = useState<HTMLButtonElement>()
-    useEffect(()=>{
-        console.log(tasksList)
 
-        if(searchInput) {
-            searchInput.current.oninput = ()=> findToDoByName(tasksList, searchInput.current)
-            searchInput.current.onfocus = ()=> findToDoByName(tasksList, searchInput.current)
-            searchInput.current.onblur = ()=> canselSelect(tasksList)
-            searchInput.current.addEventListener('keydown', (e)=> {if(e.keyCode == 13) e.preventDefault()})
-        }
-        if(searchButtonElement) {
-            searchButtonElement.onclick = ()=> clearInput(searchInput.current)
-        }
+    //Добавляем соответствующим элементам интерфейса обработчики событий с помощью функций написанных ниже
+    if(searchInput.current) {
+        searchInput.current.oninput = ()=> findToDoByName(tasksList, searchInput.current)
+        searchInput.current.onfocus = ()=> findToDoByName(tasksList, searchInput.current)
+        searchInput.current.onblur = ()=> canselSelect(tasksList)
+        searchInput.current.addEventListener('keydown', (e)=> {if(e.keyCode == 13) e.preventDefault()})
+    }
+    if(searchButtonElement) {
+        searchButtonElement.onclick = ()=> clearInput(searchInput.current)
+    }
 
-        
-    })
-
+    //Выделяет цветом задачу, текст которой частично или полностью совпадает с текстом в поле ввода
     function findToDoByName(tasksList: any[], inputElement: HTMLInputElement) {
-        console.log(searchButtonElement)
         let searchMessage = inputElement.value;
         let toDoMessage = ''
         tasksList.forEach((task: object, index: number)=>{
             toDoMessage =  tasksList[index].message.substring(0, searchMessage.length)
-            console.log(toDoMessage)
             if(searchMessage === toDoMessage && searchMessage !== '') {
                 tasksList[index].toDoElement.childNodes[0].classList.add('to-do-item_found')
             } else tasksList[index].toDoElement.childNodes[0].classList.remove('to-do-item_found')
         })
     }
 
+    //Отменяет выделение цветом всех задач
     function canselSelect(tasksList: any[]) {
         tasksList.forEach((task: object, index: number)=>{
             tasksList[index].toDoElement.childNodes[0].classList.remove('to-do-item_found')
         })
     }
 
+    //Очистка текстового поля
     function clearInput(inputElement: HTMLInputElement) {
-        console.log(inputElement)
         inputElement.value = ''
     }
 

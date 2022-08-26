@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import AppHeader from './components/AppHeader/AppHeader';
 import AppTop from './components/AppTop/AppTop';
@@ -19,9 +19,9 @@ function App() {
 
 
   useEffect(()=>{
-    //Присваивание каждому элементу списка своего HTML элемента с задачей и HTML элемента редактирующего эту
     tasksList.forEach((task, index)=>{task.toDoElement = toDoItems[index]; task.editElement = editItems[index]})
-    setTasksList(tasksList)
+    if(tasksList[3]) console.log(tasksList[3].message!)
+    
   })
 
   return (
@@ -29,7 +29,7 @@ function App() {
     <div className="App">
       <div className="app-container">
         <AppHeader> 
-          <Text className = 'app-title' textType = 'title' inner = 'Welcome to to-do list App'/>
+          <Text className = 'app-title' textType = 'title' inner = 'To-do list App'/>
         </AppHeader>
         <AppBody>
           <AppTop>
@@ -37,14 +37,14 @@ function App() {
             <SearchToDoForm tasksList = {tasksList}/>
           </AppTop>
           <AppBottom>
-            <ToDoList tasksList = {tasksList}/>
+            <ToDoList tasksList = {tasksList} setTasksList = {setTasksList}/>
             <ToDoListEdit tasksList = {tasksList} setTasksList = {setTasksList}/>
           </AppBottom>
         </AppBody> 
       </div>
     </div>
-    // Логика добавления задач реализована в компоненте <AddToDoForm/>
-    // Логика поиска задач по названию реализована в компоненте <SearchToDoForm/>
+    // Логика добавления задач реализована в компоненте <AddToDoForm/>+
+    // Логика поиска задач по названию реализована в компоненте <SearchToDoForm/>+
     // Логика взаимодействия со списком задач(удаление, редактирование, установка статуса) реализована в компоненте <EditItem/>
     // Логика изменения размера окна списка задач реализована в компоненте <ToDoList/>
   );

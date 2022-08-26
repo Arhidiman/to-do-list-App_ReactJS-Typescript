@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC } from "react";
+import {useEffect, useRef, useState, FC } from "react";
 import './EditItemStyle.css'
 import Button from '../common/Button/Button'
 import ToDoStatus from '../ToDoStatus/ToDoStatus'
@@ -11,7 +11,9 @@ interface IEditItem {
 }
 
 const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
-
+    useEffect(()=>{
+        console.log(tasksList)
+      })
     //Объявление необходимых констант
     const editItem = useRef<HTMLDivElement>(null!)
     const [eraseButtonElement, setEraseButtonElement] = useState<HTMLButtonElement>()
@@ -27,29 +29,23 @@ const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
     const [nextInLineStatusIndex, inProgressStatusIndex, completedStatusIndex] = [0, 1 ,2]
 
 
-    // Присваивание элементам взаимодействия со списком задач соответствующих обработчиков событий
+    //Добавляем соответствующим элементам интерфейса обработчики событий с помощью функций написанных ниже
     if(eraseButtonElement) eraseButtonElement.onclick = (e)=> eraseTask(getToDoIndex(e, eraseButtons)!, tasksList) 
     if(toDoStatusItem)  toDoStatusItem.onchange = (e)=> setToDoStatus(toDoItems, toDoStatusItem, getToDoIndex(e, statusItems)!)
     if(editTextButtonElement)  editTextButtonElement.onclick = (e)=> showEditToDoForm(editToDoForm!, getToDoIndex(e, editButtons)!, updateToDoMessage)
     if(saveToDoButtonElement)  saveToDoButtonElement.onclick = ()=> console.log('saveToDoButtonElement')
     if (editToDoInput) editToDoInput.onblur = (e)=> hideEditToDoForm(editToDoForm!)
    
-
-
-    // Разбитие функционала взаимодейтсвия со списком задач на соответствующие функции
-
-    // Определяет индекс элемента, который должен быть отрадактирован
+    // Определяет индекс задачи, который должна быть отрадактирована
     function getToDoIndex(e: Event, elementsCollection: HTMLCollectionOf<HTMLElement>) {
-        console.log(e.target, elementsCollection)
         for(let i = 0; i < elementsCollection.length; i++) {
             if(e.target === elementsCollection[i]) {
-                console.log(i)
                 return i
             } 
         }
     }
 
-    // Удаляет объект 
+    // Удаляет задачу из списка
     function eraseTask(index: number, tasksList: string[]) {
         let tasks: string[] = []
         tasksList.forEach((task)=>{tasks.push(task)})
@@ -60,34 +56,37 @@ const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
         }
     }
 
+    // Изменяет массив списка задач, изменяя свойство statusIndex у выбранной задачи
     function setToDoStatus(toDoItems: HTMLCollectionOf<HTMLElement>, statusItem: HTMLSelectElement, itemIndex: number) {
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'Ожидает') {
             tasksList[itemIndex].statusIndex = nextInLineStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            console.log(newTasksList)
+            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         }
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'В процессе') {
             tasksList[itemIndex].statusIndex = inProgressStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            console.log(newTasksList)
+            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         }
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'Выполнено') {
             tasksList[itemIndex].statusIndex = completedStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            console.log(newTasksList)
+            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         } 
     }
 
+    // Возвращает отсортированный список задач по их статусу выполнения
     function getSortedTodo(tasksList: any[]) {
         let nextInLineTasks: any[] = tasksList.filter((item)=>item.statusIndex === nextInLineStatusIndex)
         let inProgressTasks: any[] = tasksList.filter((item)=>item.statusIndex === inProgressStatusIndex)
         let completedTasks: any[] = tasksList.filter((item)=>item.statusIndex === completedStatusIndex)
-       return(nextInLineTasks.concat(inProgressTasks).concat(completedTasks))
+        return(nextInLineTasks.concat(inProgressTasks).concat(completedTasks))
     }
 
+    //Открывает форму редактирования текста задачи
     function showEditToDoForm(formElement: HTMLFormElement, toDoIndex: number, updateToDoMessage: Function) {
         formElement!.classList.add('edit-to-do-text-form_show')
         editItem.current.classList.add('edit-item-container_show-form')
@@ -97,34 +96,34 @@ const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
         updateToDoMessage(input, formElement, toDoIndex, hideEditToDoForm)
     }
 
+    //Скрывает форму редактирования текста задачи
     function hideEditToDoForm(formElement: HTMLFormElement) {
-        console.log(formElement)
         formElement!.classList.remove('edit-to-do-text-form_show')
         editItem.current.classList.remove('edit-item-container_show-form')
     }
 
+    //Редактирует текст задачи по значению, введённому в форму редактирования
     function updateToDoMessage(inputElement: HTMLInputElement, formElement: HTMLFormElement, toDoIndex: number, hideEditToDoForm: Function) {
         if(inputElement) inputElement.onkeydown = (e)=> {
             if(e.keyCode == 13) {
                 e.preventDefault()
                 tasksList[toDoIndex].toDoElement.childNodes[0].innerHTML = inputElement.value
                 tasksList[toDoIndex].message = inputElement.value
+                let newTasksList: any[] = []
+                tasksList.forEach((task, index)=>{newTasksList.push(task)})
+                setTasksList(newTasksList)
                 hideEditToDoForm(formElement)
             }
         }
         if(saveToDoButtonElement) {
-            console.log('update')
             saveToDoButtonElement.onmousedown = function() {
                 tasksList[toDoIndex].toDoElement.childNodes[0].innerHTML = inputElement.value
                 tasksList[toDoIndex].message = inputElement.value
+                let newTasksList: any[] = []
+                tasksList.forEach((task, index)=>{newTasksList.push(task)})
+                setTasksList(newTasksList)
             }
-
-         
         }
-    }
-
-    function click() {
-        console.log('click')
     }
 
     return(

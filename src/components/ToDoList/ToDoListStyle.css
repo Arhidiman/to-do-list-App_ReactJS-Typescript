@@ -1,12 +1,9 @@
 .to-do-list {
-    display: inline-block;
     width: 30%;
-    height: 100vh;
     border: solid rgb(48, 48, 255) 3px;
     grid-row-start: 2;
     grid-row-end: 3;
 }
-
 
 .to-do-list-container {
     width: 90%;

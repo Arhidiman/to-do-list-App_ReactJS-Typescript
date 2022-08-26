@@ -1,4 +1,6 @@
 .app-header {
   padding: 30px 0px;
-  background: blue;
+  background: linear-gradient(to top right, #a0a0a0, #616161);
+  border: solid rgb(48, 48, 255) 3px;
+  border-bottom: none
 }

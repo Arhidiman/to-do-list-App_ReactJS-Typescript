@@ -1,8 +1,7 @@
 .to-do-list-edit-field {
     display: inline-block;
     flex-grow: 1;
-    height: 100vh;
-    padding-top: 10px;
+    /* padding-top: 10px; */
     border: solid rgb(48, 48, 255) 3px;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -11,7 +10,6 @@
 }
 
 .edit-field-container {
-    display: grid;
     grid-template-columns: 1fr;
     grid-gap: 10px;
     width: 95%;

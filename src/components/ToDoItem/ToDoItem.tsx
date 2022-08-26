@@ -14,8 +14,8 @@ const  IToDoItem: FC<IToDoItem> = ({inner, tasksList, className})=> {
     useEffect(()=>{
         // toDoText.current.innerHTML = inner
         // console.log(inner)
-        console.log(toDoText.current.innerHTML)
-        console.log(toDoText.current)
+        // console.log(toDoText.current.innerHTML)
+        // console.log(toDoText.current)
     })
 
     

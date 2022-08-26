@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 20px;
     justify-content: space-around;
+    margin: 10px 0px;
 }
 
 .to-do-edit-component {

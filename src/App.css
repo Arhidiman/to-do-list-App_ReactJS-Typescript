@@ -4,20 +4,20 @@ html, body, h1, h2, p, li, a, div, form, input {
   box-sizing: border-box;
 }
 
+body {
+  background: #282c34;
+}
+
 input {
   padding-left: 10px;
   outline: none;
 }
 
-
-
-
-
-
-
 .App {
-  background-color: #282c34;
   display: flex;
+  height: 100%;
+  margin-top: 50px;
+  background-color: #282c34;
   flex-direction: row;
   justify-content: space-around;
 }

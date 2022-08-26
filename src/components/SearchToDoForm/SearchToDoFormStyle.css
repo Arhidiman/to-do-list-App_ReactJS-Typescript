@@ -1,12 +1,12 @@
 .search-to-do-form {
+    box-sizing: border-box;
     display: flex;
     flex-grow: 1;
-    box-sizing: border-box;
     height: 35px;
 }
 
 .search-to-do-input {
     box-sizing: border-box;
     height: 100%;
-    width: 95%;
+    width: 80%;
 }

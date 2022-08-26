@@ -2,6 +2,7 @@
 .button {
     box-sizing: border-box;
     cursor: pointer;
+    /* font-size: 12px; */
     transition: all ease 0.2s;
     user-select: none;
 }
@@ -10,7 +11,6 @@
     height: 35px;
     background: grey;
     border: rgb(103, 103, 255) solid 2px;
-    /* border-radius: 3px; */
     overflow: hidden;
     text-align: left;
     line-height: 1em;

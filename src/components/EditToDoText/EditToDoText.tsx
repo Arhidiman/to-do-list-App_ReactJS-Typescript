@@ -17,7 +17,7 @@ const  EditToDoText: FC<IEditToDoText> = ({setSaveToDoButtonElement, setEditToDo
     if(setEditToDoInput) setEditToDoInput(editToDoInput.current)
     return(  
         <form ref = {editToDoForm} className="edit-to-do-text-form">
-            <input ref = {editToDoInput} className="edit-to-do-input" type="text" placeholder="Type new taks name"/>
+            <input ref = {editToDoInput} className="edit-to-do-input" type="text" placeholder="Редактировать текст задачи"/>
             <Button className = 'app-top-button' inner = 'Сохранить изменения' setSaveToDoButtonElement = {setSaveToDoButtonElement}/>
         </form> 
     )

@@ -3,6 +3,7 @@
     justify-content: space-around;
     height: 50px;
     border: solid rgb(48, 48, 255) 3px;
+    border-bottom: none
 }
 
 .app-top-container {
