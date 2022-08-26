@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC } from "react";
+import { useEffect, useRef, useState, FC } from "react";
 import './ToDoListStyle.css'
 import ToDoItem from '../ToDoItem/ToDoItem'
 
@@ -9,39 +9,26 @@ interface IToDoList {
 }
 
 const  ToDoList: FC<IToDoList> = ({tasksList, setTasksList})=> {
-
+    
+    //Объявление необходимых констант
     const toDoList = useRef<HTMLDivElement>(null!)
-    const [appWidth, setAppWidth] = useState<number>()
-    const [toDoListEditField, setToDoListEditField] = useState<HTMLDivElement>()
     const [toDoListXLeft, setToDoListXLeft] = useState<number>()
     const [toDoListXRight, setToDoListXRight] = useState<number>()
-    const [count, setCount] = useState<number>(0)
 
     useEffect(()=>{
-        setAppWidth(document.getElementsByClassName('app-container')[0].getBoundingClientRect().width as number)
-        setToDoListEditField(document.getElementsByClassName('to-do-list-edit-field')[0] as HTMLDivElement)
         setToDoListXRight(document.getElementsByClassName('to-do-list')[0].getBoundingClientRect().right)
         setToDoListXLeft(document.getElementsByClassName('to-do-list')[0].getBoundingClientRect().left)
-        console.log(tasksList)
-        // if(tasksList[3]) console.log(tasksList[3].message!)
-
     })
-    if(tasksList) {
-        // let newTasksList: any[] = []
-        // tasksList.forEach((task, index)=>{
-        //     newTasksList.push(task)
-        // })
-        // setTasksList(newTasksList)
-    }
-    
+
+    //Добавляем элементу body обработчик события движения мыши, изменяющий ширину списка задач
     document.body.onmousemove = (e)=> resizeToDoListWindow(e)
 
+    // Изменяет ширину списка задач посредством изменения его свойства width
     function resizeToDoListWindow(e: MouseEvent) {
-        if((e.x > toDoListXRight! - 2 ) && (e.x < toDoListXRight! + 2)) {
+        if((e.x > toDoListXRight! - 3 ) && (e.x < toDoListXRight! + 3)) {
             document.body.style.cursor = 'e-resize'
             document.body.onmousedown = (e)=> {
                 document.body.onmousemove = (e)=>{
-                    let toDoListWidth: number = document.getElementsByClassName('to-do-list')[0].getBoundingClientRect().width
                     toDoList.current.style.width = e.x - toDoListXLeft! + 'px'
                 }
                 document.body.onmouseup = ()=>{
@@ -49,8 +36,7 @@ const  ToDoList: FC<IToDoList> = ({tasksList, setTasksList})=> {
                     document.body.onmousemove = null
                     document.body.onmouseup = null
                     document.body.onmousemove = (e)=> resizeToDoListWindow(e)
-                    // setToDoListXRight(document.getElementsByClassName('to-do-list')[0].getBoundingClientRect().right)
-                    // setCount(count + 1)
+                    setToDoListXRight(document.getElementsByClassName('to-do-list')[0].getBoundingClientRect().right)
                 }
             }
         } else {

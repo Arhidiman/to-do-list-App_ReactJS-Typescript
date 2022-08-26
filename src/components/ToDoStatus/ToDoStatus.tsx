@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC } from "react";
+import { useEffect, useRef, FC } from "react";
 import './ToDoStatusStyle.css'
 
 interface IToDoStatus {
@@ -16,7 +16,7 @@ const  ToDoStatus: FC<IToDoStatus> = ({className, setToDoStatusItem, statusIndex
     })
 
     return(
-        <select ref = {toDoStatusItem} className = {`to-do-status ${'to-do-edit-component'}`}>
+        <select ref = {toDoStatusItem} className = 'to-do-status to-do-edit-component'>
             <option>Ожидает</option>
             <option>В процессе</option>
             <option>Выполнено</option>

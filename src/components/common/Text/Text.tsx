@@ -1,4 +1,4 @@
-import react, { useEffect, useRef, useState, FC } from "react";
+import { useRef, FC } from "react";
 import './TextStyle.css'
 
 interface TextProps {
@@ -13,11 +13,6 @@ interface TextProps {
 const Text: FC<TextProps> = ({textType, className, inner, setTextShadowToggler, textShadowToggler, setCheckResult, switchToNext})=> {
     
     const text = useRef<HTMLHeadingElement | HTMLParagraphElement>(null!)
-
-    useEffect(()=>{
-  
-
-      })
 
     if(textType == 'title') {
         return(

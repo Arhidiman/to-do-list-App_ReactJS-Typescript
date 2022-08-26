@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC, ReactNode } from "react";
+import { useEffect, useRef, FC } from "react";
 import './ButtonStyle.css'
 
 interface IButton {

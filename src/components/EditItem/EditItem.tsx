@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, FC } from "react";
+import { useRef, useState, FC } from "react";
 import './EditItemStyle.css'
 import Button from '../common/Button/Button'
 import ToDoStatus from '../ToDoStatus/ToDoStatus'
@@ -11,9 +11,7 @@ interface IEditItem {
 }
 
 const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
-    useEffect(()=>{
-        console.log(tasksList)
-      })
+
     //Объявление необходимых констант
     const editItem = useRef<HTMLDivElement>(null!)
     const [eraseButtonElement, setEraseButtonElement] = useState<HTMLButtonElement>()
@@ -24,14 +22,13 @@ const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
     const [toDoStatusItem, setToDoStatusItem] = useState<HTMLSelectElement>()
     const [eraseButtons, setEraseButtons] = useState<HTMLCollectionOf<HTMLButtonElement>>(document.getElementsByClassName('erase-button')  as HTMLCollectionOf<HTMLButtonElement>)
     const [editButtons, setEditButtons] = useState<HTMLCollectionOf<HTMLButtonElement>>(document.getElementsByClassName('edit-button') as HTMLCollectionOf<HTMLButtonElement>)
-    const [toDoItems, setToDoItems] = useState<HTMLCollectionOf<HTMLDivElement>>(document.getElementsByClassName('to-do-item') as HTMLCollectionOf<HTMLDivElement>)
     const [statusItems, setStatusItems] = useState<HTMLCollectionOf<HTMLSelectElement>>(document.getElementsByClassName('to-do-status') as HTMLCollectionOf<HTMLSelectElement>)
     const [nextInLineStatusIndex, inProgressStatusIndex, completedStatusIndex] = [0, 1 ,2]
 
 
     //Добавляем соответствующим элементам интерфейса обработчики событий с помощью функций написанных ниже
     if(eraseButtonElement) eraseButtonElement.onclick = (e)=> eraseTask(getToDoIndex(e, eraseButtons)!, tasksList) 
-    if(toDoStatusItem)  toDoStatusItem.onchange = (e)=> setToDoStatus(toDoItems, toDoStatusItem, getToDoIndex(e, statusItems)!)
+    if(toDoStatusItem)  toDoStatusItem.onchange = (e)=> setToDoStatus(toDoStatusItem, getToDoIndex(e, statusItems)!)
     if(editTextButtonElement)  editTextButtonElement.onclick = (e)=> showEditToDoForm(editToDoForm!, getToDoIndex(e, editButtons)!, updateToDoMessage)
     if(saveToDoButtonElement)  saveToDoButtonElement.onclick = ()=> console.log('saveToDoButtonElement')
     if (editToDoInput) editToDoInput.onblur = (e)=> hideEditToDoForm(editToDoForm!)
@@ -56,24 +53,21 @@ const  EditItem: FC<IEditItem> = ({tasksList, setTasksList, statusIndex})=> {
         }
     }
 
-    // Изменяет массив списка задач, изменяя свойство statusIndex у выбранной задачи
-    function setToDoStatus(toDoItems: HTMLCollectionOf<HTMLElement>, statusItem: HTMLSelectElement, itemIndex: number) {
+    // Изменяет массив списка задач, изменяя свойство statusIndex у выбранной задачи, обновляет массив списка задач
+    function setToDoStatus(statusItem: HTMLSelectElement, itemIndex: number) {
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'Ожидает') {
             tasksList[itemIndex].statusIndex = nextInLineStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         }
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'В процессе') {
             tasksList[itemIndex].statusIndex = inProgressStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         }
         if(statusItem.options[statusItem.selectedIndex].innerHTML === 'Выполнено') {
             tasksList[itemIndex].statusIndex = completedStatusIndex
             let newTasksList = getSortedTodo(tasksList)
-            // console.log(newTasksList)
             setTasksList(newTasksList.map((task)=>(task)))
         } 
     }

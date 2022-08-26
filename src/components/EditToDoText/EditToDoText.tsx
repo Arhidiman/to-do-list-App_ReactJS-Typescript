@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC, ReactElement } from "react";
+import { useRef, FC, ReactElement } from "react";
 import './EditToDoTextStyle.css'
 import Button from '../common/Button/Button'
 

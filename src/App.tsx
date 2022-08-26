@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import './App.css';
 import AppHeader from './components/AppHeader/AppHeader';
 import AppTop from './components/AppTop/AppTop';
-import AppBottom from './components/AppBottom/AppBottom';
+import AppMain from './components/AppMain/AppMain';
 import AddToDoForm from './components/AddToDoForm/AddToDoForm';
 import SearchToDoForm from './components/SearchToDoForm/SearchToDoForm';
 import ToDoList from './components/ToDoList/ToDoList';
@@ -13,15 +13,13 @@ function App() {
 
   const [tasksList, setTasksList] = useState<any[]>([]) 
   // Массив tasksList со списком задач, нужен для удобства манипулирования элементами списка в процессе создания, редактирования, удаления, поиска и т.д
-  // Массив состоит из объектов, со свойствами соответствующими каждому элементу списка
+  // Массив состоит из объектов со свойствами соответствующими каждому элементу списка
   const [toDoItems, setToDoItems] = useState<HTMLCollectionOf<HTMLDivElement>>(document.getElementsByClassName('to-do-item') as HTMLCollectionOf<HTMLDivElement>)
   const [editItems, setEditItems] = useState<HTMLCollectionOf<HTMLDivElement>>(document.getElementsByClassName('edit-item-container') as HTMLCollectionOf<HTMLDivElement>)
 
 
   useEffect(()=>{
-    tasksList.forEach((task, index)=>{task.toDoElement = toDoItems[index]; task.editElement = editItems[index]})
-    if(tasksList[3]) console.log(tasksList[3].message!)
-    
+    tasksList.forEach((task, index)=>{task.toDoElement = toDoItems[index]; task.editElement = editItems[index]})    
   })
 
   return (
@@ -36,17 +34,19 @@ function App() {
             <AddToDoForm tasksList = {tasksList} setTasksList = {setTasksList}/>
             <SearchToDoForm tasksList = {tasksList}/>
           </AppTop>
-          <AppBottom>
+          <AppMain>
             <ToDoList tasksList = {tasksList} setTasksList = {setTasksList}/>
             <ToDoListEdit tasksList = {tasksList} setTasksList = {setTasksList}/>
-          </AppBottom>
+          </AppMain>
         </AppBody> 
       </div>
     </div>
-    // Логика добавления задач реализована в компоненте <AddToDoForm/>+
-    // Логика поиска задач по названию реализована в компоненте <SearchToDoForm/>+
-    // Логика взаимодействия со списком задач(удаление, редактирование, установка статуса) реализована в компоненте <EditItem/>
-    // Логика изменения размера окна списка задач реализована в компоненте <ToDoList/>
+    // Логика добавления задач реализована в компоненте <AddToDoForm/> +
+    // Логика поиска задач по названию реализована в компоненте <SearchToDoForm/> +
+    // Логика взаимодействия со списком задач(удаление, редактирование, установка статуса) реализована в компоненте <EditItem/> +
+    // Логика изменения размера окна списка задач реализована в компоненте <ToDoList/> +
+    // 'Обрезать конец наименования заметки TODO' реализовано с помощью CSS свойств в классе to-do-item-text +
+    // Приложение написано с использованием Typesript +
   );
 }
 
